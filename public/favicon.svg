@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100" width="32" height="32">
+  <defs>
+    <linearGradient id="lit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B8A0FF"/>
+      <stop offset="55%" stop-color="#7C4FE8"/>
+      <stop offset="100%" stop-color="#5526D4"/>
+    </linearGradient>
+    <linearGradient id="side" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5A2FC8"/>
+      <stop offset="100%" stop-color="#2D1078"/>
+    </linearGradient>
+    <linearGradient id="deep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D1078"/>
+      <stop offset="100%" stop-color="#150640"/>
+    </linearGradient>
+  </defs>
+  <g>
+    <g transform="rotate(0)">
+      <path d="M 0,-12 L -6,-6 L 0,0 L 6,-6 Z" fill="url(#deep)"/>
+      <path d="M 0,-46 L -19,-23 L -11,-9 L -6,-6 L 0,-12 Z" fill="url(#side)"/>
+      <path d="M 0,-46 L 19,-23 L 11,-9 L 6,-6 L 0,-12 Z" fill="url(#lit)"/>
+    </g>
+    <g transform="rotate(60)">
+      <path d="M 0,-12 L -6,-6 L 0,0 L 6,-6 Z" fill="url(#deep)"/>
+      <path d="M 0,-46 L -19,-23 L -11,-9 L -6,-6 L 0,-12 Z" fill="url(#side)"/>
+      <path d="M 0,-46 L 19,-23 L 11,-9 L 6,-6 L 0,-12 Z" fill="url(#lit)"/>
+    </g>
+    <g transform="rotate(120)">
+      <path d="M 0,-12 L -6,-6 L 0,0 L 6,-6 Z" fill="url(#deep)"/>
+      <path d="M 0,-46 L -19,-23 L -11,-9 L -6,-6 L 0,-12 Z" fill="url(#side)"/>
+      <path d="M 0,-46 L 19,-23 L 11,-9 L 6,-6 L 0,-12 Z" fill="url(#lit)"/>
+    </g>
+    <g transform="rotate(180)">
+      <path d="M 0,-12 L -6,-6 L 0,0 L 6,-6 Z" fill="url(#deep)"/>
+      <path d="M 0,-46 L -19,-23 L -11,-9 L -6,-6 L 0,-12 Z" fill="url(#side)"/>
+      <path d="M 0,-46 L 19,-23 L 11,-9 L 6,-6 L 0,-12 Z" fill="url(#lit)"/>
+    </g>
+    <g transform="rotate(240)">
+      <path d="M 0,-12 L -6,-6 L 0,0 L 6,-6 Z" fill="url(#deep)"/>
+      <path d="M 0,-46 L -19,-23 L -11,-9 L -6,-6 L 0,-12 Z" fill="url(#side)"/>
+      <path d="M 0,-46 L 19,-23 L 11,-9 L 6,-6 L 0,-12 Z" fill="url(#lit)"/>
+    </g>
+    <g transform="rotate(300)">
+      <path d="M 0,-12 L -6,-6 L 0,0 L 6,-6 Z" fill="url(#deep)"/>
+      <path d="M 0,-46 L -19,-23 L -11,-9 L -6,-6 L 0,-12 Z" fill="url(#side)"/>
+      <path d="M 0,-46 L 19,-23 L 11,-9 L 6,-6 L 0,-12 Z" fill="url(#lit)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,1153 @@
+/* ============ NAV ============ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  /* Restrained surface; no decorative glass blur */
+  background: oklch(0.972 0.005 285 / 0.92);
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    background   var(--dur-base) var(--ease-out);
+}
+.nav.scrolled {
+  border-bottom-color: var(--border);
+  background: var(--bg);
+  box-shadow: var(--shadow-xs);
+}
+.nav-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  font-family: "Instrument Serif", serif;
+  line-height: 1;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: filter var(--dur-base) var(--ease-out);
+  filter: drop-shadow(0 4px 12px oklch(0.50 0.24 285 / 0.18));
+}
+.brand:hover .brand-mark {
+  filter: drop-shadow(0 6px 18px oklch(0.50 0.24 285 / 0.32));
+}
+.brand-name {
+  color: var(--text);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.brand-name em {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  color: var(--text-3);
+  font-weight: 500;
+  font-size: 12px;
+  padding-left: 8px;
+  border-left: 1px solid var(--border);
+  letter-spacing: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.nav-link,
+.nav-link-btn {
+  font-size: 14px;
+  color: var(--text-2);
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+.nav-link::after,
+.nav-link-btn::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 4px;
+  height: 1.5px;
+  background: var(--accent);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav-link:hover::after,
+.nav-link-btn:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+.nav-link:hover,
+.nav-link-btn:hover {
+  color: var(--accent);
+}
+.nav-link.active {
+  color: var(--accent);
+}
+
+.nav-trigger {
+  position: relative;
+}
+.nav-trigger.open .nav-link-btn {
+  color: var(--accent);
+  background: var(--accent-50);
+}
+
+/* ============ MEGA MENU — RICH ============ */
+/* Animated chevron rotates on open */
+.nav-link-btn .chev {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.nav-trigger.open .nav-link-btn .chev {
+  transform: rotate(180deg);
+}
+
+.mega {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  box-shadow:
+    0 30px 60px -20px oklch(0.20 0.045 285 / 0.25),
+    0 16px 32px -16px oklch(0.50 0.24 285 / 0.18),
+    inset 0 1px 0 0 oklch(0.99 0.005 285 / 0.7);
+  /* Padding-top includes the visual gap; ::before extends hover area upward */
+  margin-top: 10px;
+  padding: 18px;
+  z-index: 60;
+  -webkit-backdrop-filter: saturate(140%);
+  backdrop-filter: saturate(140%);
+  /* Always in DOM. Invisible + non-interactive until .is-open. No mount/unmount
+     means no flicker between panels — switching = pure CSS opacity crossfade. */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.14s linear,
+    visibility 0s linear 0.14s;
+}
+.mega.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 0.14s linear,
+    visibility 0s linear 0s;
+}
+
+/* Invisible hover-bridge: spans exactly the visual gap between trigger and
+   panel so the cursor never lands on the scrim while crossing. */
+.mega::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: transparent;
+}
+
+/* Decorative top-edge gradient accent */
+.mega::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 18%;
+  right: 18%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  border-radius: 2px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Scrim — soft dim of the page below */
+.mega-scrim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: oklch(0.20 0.045 285 / 0.18);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  z-index: 49;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s var(--ease-out);
+}
+.mega-scrim.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ===== SOLUTIONS (rich) ===== */
+.mega-rich {
+  width: min(960px, 92vw);
+}
+.mega-tabs {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  width: fit-content;
+  margin-bottom: 16px;
+}
+.mtab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-2);
+  padding: 7px 14px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition:
+    background var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+  text-decoration: none;
+}
+.mtab:hover {
+  color: var(--text);
+}
+.mtab.active {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+.mtab-link {
+  margin-left: auto;
+  color: var(--accent);
+}
+.mtab-link:hover {
+  background: var(--accent-50);
+}
+
+.mega-rich-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+}
+/* Prevent grid children from blowing out the column when their content
+   has `white-space: nowrap`. Without this, the longest tagline forces
+   the cards column wider than its 1.2fr share. */
+.mega-rich-grid > * {
+  min-width: 0;
+}
+.mega-rich-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 8px;
+  align-content: start;
+  min-width: 0;
+  /* Match the preview pane height so the whole panel is rock-stable. */
+  min-height: 460px;
+}
+.mega-rich-cards > * {
+  min-width: 0;
+}
+.mega-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--r-md);
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  transition:
+    background var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+  position: relative;
+}
+.mega-card:hover,
+.mega-card.is-active {
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.mega-card-icon {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-sm);
+  background: var(--accent-50);
+  color: var(--accent);
+  border: 1px solid var(--accent-100);
+  flex-shrink: 0;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.mega-card:hover .mega-card-icon,
+.mega-card.is-active .mega-card-icon {
+  transform: scale(1.06) rotate(-3deg);
+  background: var(--accent);
+  color: #fff;
+}
+.mega-card-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+.mega-card-text strong {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+.mega-card-text span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-3);
+  line-height: 1.35;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mega-card-arrow {
+  color: var(--text-3);
+  opacity: 0;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+  flex-shrink: 0;
+}
+.mega-card:hover .mega-card-arrow,
+.mega-card.is-active .mega-card-arrow {
+  opacity: 1;
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
+/* Live preview pane — content updates inline; no entry animation so hovering
+   different cards just changes the text instead of replaying a scale-in. */
+.mega-preview {
+  background: linear-gradient(160deg, var(--accent-50) 0%, var(--surface) 90%);
+  border: 1px solid var(--accent-100);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* Lock the height so different-length content doesn't reflow the panel. */
+  min-height: 460px;
+}
+.mp-chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--accent-100);
+  font-size: 10px;
+}
+.mp-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.mp-r { background: oklch(0.66 0.20 25); }
+.mp-y { background: oklch(0.85 0.16 78); }
+.mp-g { background: oklch(0.72 0.16 152); }
+.mp-url {
+  margin: 0 8px;
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: var(--surface-2);
+  border-radius: 4px;
+  font-size: 10px;
+  color: var(--text-3);
+  font-family: 'Menlo', monospace;
+  letter-spacing: -0.01em;
+}
+.mp-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: oklch(0.46 0.16 152);
+  background: oklch(0.72 0.16 152 / 0.18);
+  border: 1px solid oklch(0.72 0.16 152 / 0.32);
+  padding: 2px 6px;
+  border-radius: 99px;
+}
+.mp-live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2s var(--ease-in-out) infinite;
+}
+.mp-body {
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.mp-eyebrow {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 700;
+}
+.mp-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--text);
+}
+.mp-desc {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+  min-height: 56px;
+  /* Cap to 3 lines so a long description doesn't push everything below. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mp-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+}
+.mp-stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+.mp-stat-lbl {
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+.mp-agents {
+  margin-top: 4px;
+}
+.mp-agents-lbl {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.mp-agents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mp-agent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-2);
+  padding: 5px 8px;
+  background: var(--surface);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mp-agent > span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.mp-agent-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--accent-50);
+}
+.mp-cta {
+  margin-top: auto;
+  padding-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.mp-cta:hover {
+  text-decoration: underline;
+}
+
+/* Trust strip at the bottom of the mega */
+.mega-trust {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.mega-trust-lbl {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.mega-trust-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1;
+}
+.mega-trust-pill {
+  font-size: 11px;
+  padding: 3px 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  color: var(--text-2);
+  font-weight: 500;
+}
+
+/* ===== PLATFORM (rich) ===== */
+.mega-platform {
+  width: min(880px, 90vw);
+}
+.mega-platform-grid {
+  grid-template-columns: 1.6fr 1fr;
+}
+.mega-platform-cols {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px;
+}
+.mp-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mp-group-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 0 4px;
+}
+.mp-group-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--accent);
+}
+.mp-group-desc {
+  font-size: 11.5px;
+  color: var(--text-3);
+}
+.mp-group-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* All rows the height of the tallest card — keeps icon Y-positions
+     identical across rows, regardless of description length. */
+  grid-auto-rows: 1fr;
+  gap: 4px;
+}
+.mp-mod {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  border-radius: var(--r-md);
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  transition: background var(--dur-base) var(--ease-out);
+  min-width: 0;
+  /* Pin icon to top so different-length descriptions don't shift it. */
+  align-items: flex-start;
+}
+.mp-mod > div {
+  min-width: 0;
+  overflow: hidden;
+  /* Slight nudge so the title baseline lines up with the icon's optical centre. */
+  padding-top: 1px;
+}
+.mp-mod:hover {
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.mp-mod-icon {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  background: var(--accent-50);
+  color: var(--accent);
+  border: 1px solid var(--accent-100);
+  flex-shrink: 0;
+}
+.mp-mod strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+.mp-mod span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-3);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.mega-platform-feat {
+  background: linear-gradient(160deg, var(--bg-dark) 0%, var(--bg-dark-2) 100%);
+  border: 1px solid oklch(0.30 0.045 285);
+  border-radius: var(--r-lg);
+  padding: 22px 20px;
+  color: var(--text-on-dark);
+  position: relative;
+  overflow: hidden;
+}
+.mega-platform-feat::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -30%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, oklch(0.50 0.24 285 / 0.55) 0%, transparent 70%);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+/* Brand block — mark + wordmark together so the panel reads as Ajuni */
+.mpf-brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid oklch(0.97 0.008 285 / 0.10);
+  width: 100%;
+}
+.mpf-mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, oklch(0.97 0.008 285 / 0.06), oklch(0.50 0.24 285 / 0.16));
+  border: 1px solid oklch(0.97 0.008 285 / 0.14);
+  flex-shrink: 0;
+  filter: drop-shadow(0 6px 20px oklch(0.50 0.24 285 / 0.6));
+}
+.mpf-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.mpf-brand-name {
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+}
+.mpf-brand-sub {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  color: var(--text-on-dark-2);
+  margin-top: 4px;
+}
+.mpf-tag {
+  display: inline-block;
+  position: relative;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-on-dark);
+  margin-bottom: 8px;
+}
+.mega-platform-feat h5 {
+  position: relative;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  color: var(--text-on-dark);
+}
+.mega-platform-feat p {
+  position: relative;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--text-on-dark-2);
+  margin-bottom: 14px;
+}
+.mpf-list {
+  position: relative;
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mpf-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--text-on-dark-2);
+}
+.mpf-list svg {
+  color: var(--accent-on-dark);
+  flex-shrink: 0;
+}
+
+/* ===== RESOURCES (rich) ===== */
+.mega-resources {
+  width: min(720px, 90vw);
+}
+.mega-resources-grid {
+  grid-template-columns: 1.5fr 1fr;
+}
+.mres-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px;
+  align-content: start;
+}
+.mres-h {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 4px 8px;
+  margin-bottom: 4px;
+}
+.mres-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-radius: var(--r-md);
+  color: inherit;
+  text-decoration: none;
+  transition: background var(--dur-base) var(--ease-out);
+  min-width: 0;
+}
+.mres-item > svg {
+  margin-top: 2px;
+}
+.mres-item > div {
+  min-width: 0;
+  overflow: hidden;
+}
+.mres-item:hover {
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.mres-item > svg {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.mres-item strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.mres-item span {
+  display: block;
+  font-size: 11.5px;
+  color: var(--text-3);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+.mres-spotlight {
+  background: linear-gradient(160deg, var(--accent-50) 0%, var(--surface) 100%);
+  border: 1px solid var(--accent-100);
+  border-radius: var(--r-lg);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+}
+.mres-spot-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.mres-spotlight h5 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.mres-spot-meta {
+  font-size: 11.5px;
+  color: var(--text-3);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+.mres-spotlight p {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--text-2);
+  margin-bottom: 14px;
+}
+.mres-spot-cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.mres-spot-cta:hover {
+  text-decoration: underline;
+}
+
+/* When mega is open, lift the nav out of the scrim */
+.nav.menu-open {
+  z-index: 60;
+}
+
+/* Dark theme polish for mega */
+[data-theme="dark"] .mega {
+  background: oklch(0.21 0.060 285);
+  border-color: oklch(0.34 0.050 285);
+  box-shadow:
+    0 30px 60px -20px oklch(0 0 0 / 0.6),
+    0 16px 32px -16px oklch(0.50 0.24 285 / 0.32);
+}
+[data-theme="dark"] .mega-rich-cards,
+[data-theme="dark"] .mega-platform-cols,
+[data-theme="dark"] .mres-cols {
+  background: oklch(0.18 0.050 285);
+  border-color: oklch(0.30 0.045 285);
+}
+[data-theme="dark"] .mp-chrome {
+  background: oklch(0.24 0.055 285);
+}
+[data-theme="dark"] .mega-card:hover,
+[data-theme="dark"] .mega-card.is-active,
+[data-theme="dark"] .mp-mod:hover,
+[data-theme="dark"] .mres-item:hover {
+  background: oklch(0.25 0.060 285);
+}
+
+/* Icon containers — in dark mode, the default --accent-50 tint blends into
+   the panel background so the boxes look invisible. Lift the fill + border
+   so each icon reads as a distinct chip. */
+[data-theme="dark"] .mp-mod-icon,
+[data-theme="dark"] .mega-card-icon {
+  background: linear-gradient(135deg, oklch(0.32 0.090 285), oklch(0.26 0.070 285));
+  border-color: oklch(0.50 0.18 285 / 0.55);
+  color: oklch(0.88 0.10 285);
+  box-shadow:
+    inset 0 1px 0 0 oklch(0.97 0.008 285 / 0.06),
+    0 2px 6px -2px oklch(0.50 0.24 285 / 0.30);
+}
+[data-theme="dark"] .mp-mod:hover .mp-mod-icon {
+  background: linear-gradient(135deg, var(--accent), var(--accent-600));
+  border-color: var(--accent-600);
+  color: oklch(0.99 0.005 285);
+}
+[data-theme="dark"] .mres-item > svg {
+  /* Resources menu uses bare svg icons (no box wrapper) — give them a
+     stronger color so they don't blend into the surface. */
+  color: oklch(0.86 0.12 285);
+}
+[data-theme="dark"] .mres-item:hover > svg {
+  color: oklch(0.92 0.08 285);
+}
+[data-theme="dark"] .mega-trust-pill,
+[data-theme="dark"] .mp-stat,
+[data-theme="dark"] .mp-agent {
+  background: oklch(0.24 0.055 285);
+  border-color: oklch(0.30 0.045 285);
+}
+[data-theme="dark"] .mega-scrim {
+  background: oklch(0 0 0 / 0.45);
+}
+
+.nav-cta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.menu-toggle {
+  display: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: var(--text-2);
+}
+.menu-toggle:hover {
+  background: var(--accent-100);
+  color: var(--accent);
+}
+
+/* Mobile drawer */
+.mobile-drawer {
+  position: absolute;
+  top: 64px;
+  left: 12px;
+  right: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--shadow-lg);
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  animation: fadeUp 0.2s ease both;
+}
+.md-section {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+.md-row {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+}
+.md-row:hover {
+  background: var(--accent-50);
+  color: var(--accent);
+}
+.md-cta {
+  background: var(--accent);
+  color: var(--text-on-dark);
+  margin-top: 12px;
+}
+.md-cta:hover {
+  background: var(--accent-600);
+  color: var(--text-on-dark);
+}
+.md-sub {
+  display: block;
+  padding: 8px 12px 8px 24px;
+  font-size: 13.5px;
+  color: var(--text-2);
+  border-radius: 6px;
+  text-decoration: none;
+}
+.md-sub:hover {
+  color: var(--accent);
+  background: var(--accent-50);
+}
+
+@media (max-width: 980px) {
+  .nav-links {
+    display: none;
+  }
+  .menu-toggle {
+    display: grid;
+  }
+  .nav-cta .btn-ghost {
+    display: none;
+  }
+}
+
+/* ============ THEME TOGGLE ============ */
+.theme-toggle {
+  position: relative;
+  /* Explicit dimensions; do NOT use place-items here — the thumb is
+     absolutely positioned and we don't want flex/grid centering to fight it. */
+  width: 56px;
+  height: 30px;
+  border-radius: 99px;
+  /* Visible track in BOTH themes — was too close to the thumb color before. */
+  background: var(--surface-2);
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  transition:
+    background var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+  display: inline-block;
+  flex-shrink: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+}
+
+.tt-thumb {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Visible distinct fill in BOTH states (was --surface = invisible on light track). */
+  background: oklch(0.99 0.005 285);
+  color: var(--accent);
+  border: 1px solid oklch(0.50 0.24 285 / 0.18);
+  box-shadow:
+    0 2px 6px -2px oklch(0.20 0.045 285 / 0.20),
+    0 1px 2px oklch(0.20 0.045 285 / 0.10);
+  transition:
+    transform 0.32s var(--ease-out-expo),
+    background var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+/* Force the icon to render exactly centered — overrides any inherited
+   line-height/baseline weirdness from the parent button. */
+.tt-thumb > svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.tt-thumb.light {
+  /* (track 56 - thumb 24) / 2 ≈ 16; left edge sits 2px from track. */
+  transform: translate(2px, -50%);
+}
+.tt-thumb.dark {
+  /* track 56 - thumb 24 - 2 = 30 — keeps a 2px gap on the right edge too. */
+  transform: translate(30px, -50%);
+  background: var(--accent);
+  color: oklch(0.99 0.005 285);
+  border-color: var(--accent-600);
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: oklch(0.21 0.060 285);
+  border-color: oklch(0.34 0.050 285);
+}
+
+@media (max-width: 540px) {
+  .theme-toggle {
+    width: 48px;
+    height: 26px;
+  }
+  .tt-thumb {
+    width: 20px;
+    height: 20px;
+  }
+  .tt-thumb.light {
+    transform: translate(2px, -50%);
+  }
+  .tt-thumb.dark {
+    transform: translate(26px, -50%);
+  }
+}
+
+/* Dark-mode nav surface */
+[data-theme="dark"] .nav {
+  background: oklch(0.16 0.045 285 / 0.85);
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  backdrop-filter: saturate(140%) blur(8px);
+}
+[data-theme="dark"] .nav.scrolled {
+  background: oklch(0.16 0.045 285);
+  border-bottom-color: oklch(0.30 0.045 285);
+}
+
+@media (max-width: 540px) {
+  .theme-toggle {
+    width: 44px;
+    height: 24px;
+  }
+  .tt-thumb {
+    width: 18px;
+    height: 18px;
+  }
+  .tt-thumb.dark {
+    transform: translate(22px, -50%);
+  }
+}

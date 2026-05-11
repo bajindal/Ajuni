@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Theme + favicon (uses the real designer mark) -->
+    <link rel="icon" type="image/svg+xml" href="/ajuni-mark.svg" />
+    <link rel="apple-touch-icon" href="/ajuni-mark.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1a0d3d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f3fb" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="light dark" />
+
+    <!-- Primary -->
+    <title>Ajuni — The Control Plane for Enterprise AI Agents</title>
+    <meta name="description" content="Ajuni is the agentic AI platform for Indian enterprises. Deploy production-ready AI agents across BFSI, Healthcare, Government, Retail, Manufacturing, and IT in weeks — not quarters." />
+    <meta name="keywords" content="AI agents, enterprise AI, agentic AI, India, BFSI, healthcare, sovereign AI, on-prem AI, Webority, Ajuni" />
+    <meta name="author" content="Webority Technologies" />
+    <link rel="canonical" href="https://ajuni.ai/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ajuni" />
+    <meta property="og:title" content="Ajuni — The Control Plane for Enterprise AI Agents" />
+    <meta property="og:description" content="Production-ready AI agents in 4–8 weeks. Sovereign deployment (VPC / on-prem / India cloud), 11 Indian languages, immutable audit trail. Built for India's regulated industries." />
+    <meta property="og:url" content="https://ajuni.ai/" />
+    <meta property="og:image" content="/og-image.svg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ajuni — Enterprise AI Agent Platform" />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@ajuni_ai" />
+    <meta name="twitter:title" content="Ajuni — The Control Plane for Enterprise AI Agents" />
+    <meta name="twitter:description" content="Production-ready AI agents for Indian enterprises in 4–8 weeks. Sovereign, multilingual, audit-grade." />
+    <meta name="twitter:image" content="/og-image.svg" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="googlebot" content="index, follow" />
+
+    <!-- Fonts: preconnect + preload -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+    <!-- Initial theme (no flash) -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem("ajuni-theme");
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var theme = saved || (prefersDark ? "dark" : "light");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+
+    <!-- Structured data: Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Ajuni",
+        "alternateName": "Ajuni AI",
+        "url": "https://ajuni.ai/",
+        "logo": "https://ajuni.ai/logo.png",
+        "description": "Enterprise AI agent platform purpose-built for Indian enterprises. Sovereign deployment, multilingual, audit-grade.",
+        "founder": { "@type": "Organization", "name": "Webority Technologies" },
+        "foundingLocation": { "@type": "Place", "name": "India" },
+        "areaServed": "IN",
+        "sameAs": [
+          "https://www.linkedin.com/company/ajuni-ai",
+          "https://twitter.com/ajuni_ai"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "Sales",
+          "email": "hello@ajuni.ai",
+          "areaServed": "IN",
+          "availableLanguage": ["en", "hi"]
+        }
+      }
+    </script>
+
+    <!-- Structured data: SoftwareApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Ajuni",
+        "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": "AI Agent Platform",
+        "operatingSystem": "Web, Linux, Cloud (AWS, Azure, GCP, OCI), On-Premise",
+        "description": "Production-ready AI agents for BFSI, Healthcare, Government, Retail, Manufacturing, and IT — deployed in your VPC, on-prem, or sovereign cloud.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "INR",
+          "description": "30-day pilot, no commitment"
+        },
+        "featureList": [
+          "Pre-built agents for regulated industries",
+          "Sovereign deployment (VPC, on-prem, India cloud)",
+          "11 Indian languages",
+          "Immutable audit trail",
+          "100+ enterprise integrations",
+          "ISO 27001 + CERT-In compliance"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

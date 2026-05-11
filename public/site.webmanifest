@@ -1,0 +1,17 @@
+{
+  "name": "Ajuni — Enterprise AI Agent Platform",
+  "short_name": "Ajuni",
+  "description": "The control plane for enterprise AI agents. Production-ready agents for Indian enterprises in 4–8 weeks.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a0d3d",
+  "theme_color": "#5526d4",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
