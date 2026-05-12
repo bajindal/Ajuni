@@ -434,6 +434,109 @@ export const INTEGRATIONS = {
   Observability: ["Datadog", "New Relic", "Splunk", "Grafana"],
 };
 
+// ===== INTEGRATION CATALOG (richer data for /integrations page) =====
+// Flat list with category + brand color + featured flag. Monogram tiles
+// are rendered using the brand color — we don't ship third-party logo
+// SVGs for licensing reasons, but the colored monogram pattern reads as
+// "branded grid" while staying honest.
+export const INTEGRATION_CATEGORIES = [
+  { id: "all",           label: "All" },
+  { id: "crm",           label: "CRM" },
+  { id: "erp",           label: "ERP" },
+  { id: "indian",        label: "Indian Stack" },
+  { id: "cloud",         label: "Cloud" },
+  { id: "finance",       label: "Finance & Tax" },
+  { id: "comm",          label: "Communication" },
+  { id: "data",          label: "Data & Storage" },
+  { id: "models",        label: "AI Models" },
+  { id: "observability", label: "Observability" },
+  { id: "identity",      label: "Identity" },
+];
+
+export const INTEGRATION_ITEMS = [
+  // CRM
+  { name: "Salesforce",            cat: "crm",           featured: true,  color: "#00A1E0" },
+  { name: "HubSpot",               cat: "crm",                            color: "#FF7A59" },
+  { name: "Zoho CRM",              cat: "crm",                            color: "#E42527" },
+  { name: "Microsoft Dynamics 365",cat: "crm",                            color: "#0078D4" },
+  { name: "Pipedrive",             cat: "crm",                            color: "#26292C" },
+  { name: "Freshworks",            cat: "crm",                            color: "#FFCD43" },
+
+  // ERP
+  { name: "SAP S/4HANA",           cat: "erp",           featured: true,  color: "#0FAAFF" },
+  { name: "Oracle EBS",            cat: "erp",                            color: "#F80000" },
+  { name: "NetSuite",              cat: "erp",                            color: "#1F2A44" },
+  { name: "Infor CloudSuite",      cat: "erp",                            color: "#D71920" },
+  { name: "Epicor Kinetic",        cat: "erp",                            color: "#FFAB00" },
+
+  // Indian Stack
+  { name: "Tally Prime",           cat: "indian",        featured: true,  color: "#0066B2" },
+  { name: "GST Portal",            cat: "indian",                         color: "#00529B" },
+  { name: "ABDM",                  cat: "indian",                         color: "#007BC0" },
+  { name: "Aadhaar (UIDAI)",       cat: "indian",                         color: "#003D7C" },
+  { name: "DigiLocker",            cat: "indian",                         color: "#1565C0" },
+  { name: "GeM",                   cat: "indian",                         color: "#00715E" },
+  { name: "Bharat Connect",        cat: "indian",                         color: "#FF6B00" },
+  { name: "CPGRAMS",               cat: "indian",                         color: "#2E7D32" },
+
+  // Cloud
+  { name: "AWS",                   cat: "cloud",         featured: true,  color: "#FF9900" },
+  { name: "Microsoft Azure",       cat: "cloud",         featured: true,  color: "#0078D4" },
+  { name: "Google Cloud",          cat: "cloud",                          color: "#4285F4" },
+  { name: "Oracle Cloud",          cat: "cloud",                          color: "#F80000" },
+  { name: "Yotta",                 cat: "cloud",                          color: "#1F4E79" },
+  { name: "CtrlS",                 cat: "cloud",                          color: "#E31E24" },
+
+  // Finance & Tax
+  { name: "Razorpay",              cat: "finance",                        color: "#0C2451" },
+  { name: "Stripe",                cat: "finance",                        color: "#635BFF" },
+  { name: "PayU",                  cat: "finance",                        color: "#16A085" },
+  { name: "ClearTax",              cat: "finance",                        color: "#3D8AE8" },
+  { name: "Zoho Books",            cat: "finance",                        color: "#E42527" },
+  { name: "QuickBooks",            cat: "finance",                        color: "#2CA01C" },
+
+  // Communication
+  { name: "WhatsApp Business",     cat: "comm",          featured: true,  color: "#25D366" },
+  { name: "Slack",                 cat: "comm",          featured: true,  color: "#4A154B" },
+  { name: "Microsoft Teams",       cat: "comm",                           color: "#5059C9" },
+  { name: "Gmail",                 cat: "comm",                           color: "#EA4335" },
+  { name: "Outlook",               cat: "comm",                           color: "#0078D4" },
+  { name: "Twilio",                cat: "comm",                           color: "#F22F46" },
+  { name: "Zendesk",               cat: "comm",                           color: "#03363D" },
+  { name: "Intercom",              cat: "comm",                           color: "#1F8DED" },
+  { name: "ServiceNow",            cat: "comm",          featured: true,  color: "#293E40" },
+
+  // Data & Storage
+  { name: "Amazon S3",             cat: "data",                           color: "#FF9900" },
+  { name: "Azure Blob",            cat: "data",                           color: "#0078D4" },
+  { name: "Google Drive",          cat: "data",                           color: "#34A853" },
+  { name: "SharePoint",            cat: "data",                           color: "#0078D4" },
+  { name: "Snowflake",             cat: "data",                           color: "#29B5E8" },
+  { name: "Databricks",            cat: "data",                           color: "#FF3621" },
+  { name: "BigQuery",              cat: "data",                           color: "#669DF6" },
+
+  // AI Models
+  { name: "OpenAI GPT-5",          cat: "models",        featured: true,  color: "#10A37F" },
+  { name: "Anthropic Claude",      cat: "models",                         color: "#D4A37C" },
+  { name: "Google Gemini",         cat: "models",                         color: "#4285F4" },
+  { name: "Meta Llama",            cat: "models",                         color: "#1877F2" },
+  { name: "Sarvam AI",             cat: "models",                         color: "#FF8E5C" },
+  { name: "Cohere",                cat: "models",                         color: "#FF7759" },
+
+  // Observability
+  { name: "Datadog",               cat: "observability",                  color: "#632CA6" },
+  { name: "New Relic",             cat: "observability",                  color: "#1CE783" },
+  { name: "Splunk",                cat: "observability",                  color: "#0F1419" },
+  { name: "Grafana",               cat: "observability",                  color: "#F46800" },
+  { name: "Sentry",                cat: "observability",                  color: "#362D59" },
+
+  // Identity
+  { name: "Okta",                  cat: "identity",                       color: "#007DC1" },
+  { name: "Auth0",                 cat: "identity",                       color: "#EB5424" },
+  { name: "Microsoft Entra ID",    cat: "identity",                       color: "#0078D4" },
+  { name: "Google Workspace SSO",  cat: "identity",                       color: "#4285F4" },
+];
+
 // ===== CUSTOMERS =====
 export const CUSTOMERS = [
   "Parliament of India", "DRDO", "Johnson & Johnson", "TVS Group",
