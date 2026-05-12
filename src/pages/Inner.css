@@ -1653,6 +1653,68 @@ a.contact-method:hover::before { opacity: 1; }
 .cf-success p {
   color: var(--text-2);
   font-size: 15px;
+  max-width: 36em;
+  margin: 0 auto;
+}
+/* Success-state secondary action (calendar link) */
+.cf-success-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0 18px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border);
+}
+.cf-success-or {
+  font-size: 12.5px;
+  color: var(--text-3);
+  font-weight: 500;
+}
+.cf-success-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 36em;
+  margin: 0 auto;
+  text-align: left;
+}
+.cf-success-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.cf-success-list svg {
+  color: var(--success);
+  flex-shrink: 0;
+}
+
+/* Inline error (form submit fail) */
+.cf-error {
+  padding: 10px 14px;
+  background: oklch(0.62 0.21 25 / 0.10);
+  border: 1px solid oklch(0.62 0.21 25 / 0.32);
+  border-radius: var(--r-sm);
+  color: oklch(0.55 0.21 25);
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+/* Static contact-method card (no hover lift) */
+.contact-method-static {
+  cursor: default;
+}
+.contact-method-static:hover {
+  border-color: var(--border);
+  transform: none;
+  box-shadow: none;
 }
 
 /* ============ RESPONSIVE ============ */
@@ -2590,6 +2652,332 @@ a.contact-method:hover::before { opacity: 1; }
 }
 .res-card:hover .res-foot svg {
   transform: translateX(4px);
+}
+
+/* ============ ABOUT PAGE ============ */
+/* Trust pill strip right under the hero */
+.abt-trust {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 28px 24px;
+}
+.abt-trust .section-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.abt-trust-lbl {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  flex-shrink: 0;
+}
+.abt-trust-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+.abt-trust-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 12px 4px 4px;
+  border-radius: 99px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.abt-trust-pill:hover {
+  border-color: var(--accent);
+}
+.abt-trust-mono {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, oklch(0.50 0.24 285), oklch(0.72 0.18 285));
+  color: #fff;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Values grid — metric-backed */
+.abt-values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.abt-value-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+.abt-value-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.abt-value-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--r-md);
+  background: var(--accent-50);
+  color: var(--accent);
+  border: 1px solid var(--accent-100);
+  display: grid;
+  place-items: center;
+  margin-bottom: 14px;
+}
+.abt-value-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.abt-value-card p {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.55;
+  margin-bottom: 18px;
+}
+.abt-value-proof {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.abt-value-proof-num {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  line-height: 1;
+}
+.abt-value-proof-lbl {
+  font-size: 11.5px;
+  color: var(--text-3);
+  letter-spacing: 0.02em;
+}
+
+/* Leadership cards */
+.abt-leaders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.abt-leader-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 24px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+.abt-leader-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.abt-leader-photo {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.20),
+    0 4px 14px -4px oklch(0.50 0.24 285 / 0.30);
+}
+.abt-leader-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.abt-leader-meta h4 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  margin-bottom: 2px;
+  color: var(--text);
+}
+.abt-leader-role {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.abt-leader-meta p {
+  font-size: 13.5px;
+  color: var(--text-2);
+  line-height: 1.55;
+  margin-bottom: 14px;
+}
+.abt-leader-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 5px 11px;
+  border-radius: 99px;
+  text-decoration: none;
+  transition: border-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+.abt-leader-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Hiring callout */
+.abt-hiring {
+  margin-top: 28px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: var(--accent-50);
+  border: 1px solid var(--accent-100);
+  border-radius: var(--r-md);
+}
+.abt-hiring svg {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.abt-hiring strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.abt-hiring span {
+  font-size: 13px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.abt-hiring a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.abt-hiring a:hover {
+  text-decoration: underline;
+}
+
+/* Made in India / HQ section */
+.abt-hq {
+  background: var(--bg);
+}
+.abt-hq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+.abt-hq-stat {
+  background: var(--surface);
+  padding: 28px 24px;
+  text-align: center;
+  transition: background var(--dur-base) var(--ease-out);
+}
+.abt-hq-stat:hover {
+  background: var(--accent-50);
+}
+.abt-hq-num {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.abt-hq-lbl {
+  font-size: 12.5px;
+  color: var(--text-2);
+  line-height: 1.4;
+}
+
+.abt-cert-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.abt-cert-head {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.abt-cert-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.abt-cert-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 99px;
+}
+.abt-cert-pill svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+@media (max-width: 720px) {
+  .abt-trust .section-inner { flex-direction: column; gap: 14px; }
 }
 
 /* ============ INDUSTRY · COMPLIANCE + CORE SYSTEMS STRIPE ============ */
